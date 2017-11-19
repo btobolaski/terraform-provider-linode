@@ -95,7 +95,7 @@ func resourceLinodeLinode() *schema.Resource {
 				Type:      schema.TypeString,
 				Required:  true,
 				ForceNew:  true,
-				StateFunc: ,
+				StateFunc: sshKeyState,
 			},
 			"root_password": &schema.Schema{
 				Type:      schema.TypeString,
