@@ -95,13 +95,13 @@ func resourceLinodeLinode() *schema.Resource {
 				Type:      schema.TypeString,
 				Required:  true,
 				ForceNew:  true,
-				StateFunc: ssh_key_state,
+				StateFunc: sshKeyState,
 			},
 			"root_password": &schema.Schema{
 				Type:      schema.TypeString,
 				Required:  true,
 				ForceNew:  true,
-				StateFunc: root_password_state,
+				StateFunc: rootPasswordState,
 			},
 			"helper_distro": &schema.Schema{
 				Type:     schema.TypeBool,
@@ -698,18 +698,18 @@ func getIps(client *linodego.Client, linodeId int) (publicIp string, privateIp s
 	return publicIp, privateIp, nil
 }
 
-// root_password_state hashes a string passed in as an interface
-func ssh_key_state(val interface{}) string {
-	return hash_string(val.(string))
+// sshKeyState hashes a string passed in as an interface
+func sshKeyState(val interface{}) string {
+	return hashString(val.(string))
 }
 
-// root_password_state hashes a string passed in as an interface
-func root_password_state(val interface{}) string {
-	return hash_string(val.(string))
+// rootPasswordState hashes a string passed in as an interface
+func rootPasswordState(val interface{}) string {
+	return hashString(val.(string))
 }
 
-// hash_string hashes a string
-func hash_string(key string) string {
+// hashString hashes a string
+func hashString(key string) string {
 	hash := sha3.Sum256([]byte(key))
 	return base64.StdEncoding.EncodeToString(hash[:])
 }
